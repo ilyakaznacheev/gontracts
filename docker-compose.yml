@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+
+  mysql:
+    image: mysql:latest
+    ports:
+        - "3306:3306"
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpass
+      MYSQL_DATABASE: gontracts
+      MYSQL_USER: default
+      MYSQL_PASSWORD: 1234
+    volumes:
+      - ./mysql/mysql-schema:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  data-volume:
