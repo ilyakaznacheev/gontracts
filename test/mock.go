@@ -3,7 +3,7 @@ package test
 import (
 	"errors"
 
-	"bitbucket.org/ilyakaznacheev/gontracts/model"
+	"github.com/ilyakaznacheev/gontracts/model"
 )
 
 // Set of DB mock objects for testing

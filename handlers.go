@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"sync"
 
-	"bitbucket.org/ilyakaznacheev/gontracts/model"
 	"github.com/gorilla/mux"
+	"github.com/ilyakaznacheev/gontracts/model"
 )
 
 var (

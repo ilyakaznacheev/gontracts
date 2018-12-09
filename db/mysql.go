@@ -6,7 +6,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql" //use MySQL driver
 
-	"bitbucket.org/ilyakaznacheev/gontracts/model"
+	"github.com/ilyakaznacheev/gontracts/model"
 )
 
 func readIndex(db *sql.DB) (int, error) {

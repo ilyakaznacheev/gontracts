@@ -7,8 +7,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"bitbucket.org/ilyakaznacheev/gontracts/db"
 	"github.com/gorilla/mux"
+	"github.com/ilyakaznacheev/gontracts/db"
 )
 
 // Server is an main application server

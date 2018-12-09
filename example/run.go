@@ -1,7 +1,7 @@
 package main
 
 import (
-	"bitbucket.org/ilyakaznacheev/gontracts"
+	"github.com/ilyakaznacheev/gontracts"
 )
 
 func main() {

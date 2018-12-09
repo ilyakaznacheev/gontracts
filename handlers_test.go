@@ -10,9 +10,9 @@ import (
 	"testing"
 	"time"
 
-	"bitbucket.org/ilyakaznacheev/gontracts/model"
-	"bitbucket.org/ilyakaznacheev/gontracts/test"
 	"github.com/gorilla/mux"
+	"github.com/ilyakaznacheev/gontracts/model"
+	"github.com/ilyakaznacheev/gontracts/test"
 )
 
 type testModelSet struct {
