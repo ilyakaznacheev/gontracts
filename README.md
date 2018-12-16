@@ -2,7 +2,7 @@
 
 The microservice able to handle companies, contracts, and purchases
 
-[![Go Report Card](https://goreportcard.com/badge/github.com/ilyakaznacheev/gontracts)](https://goreportcard.com/report/github.com/Masterminds/glide) [![GoDoc](https://godoc.org/github.com/ilyakaznacheev/gontracts?status.svg)](https://godoc.org/github.com/ilyakaznacheev/gontracts)
+[![Go Report Card](https://goreportcard.com/badge/github.com/ilyakaznacheev/gontracts)](https://goreportcard.com/report/github.com/Masterminds/glide) [![GoDoc](https://godoc.org/github.com/ilyakaznacheev/gontracts?status.svg)](https://godoc.org/github.com/ilyakaznacheev/gontracts) [![Build Status](https://travis-ci.org/ilyakaznacheev/gontracts.svg?branch=master)](https://travis-ci.org/ilyakaznacheev/gontracts) [![Coverage Status](https://coveralls.io/repos/github/ilyakaznacheev/gontracts/badge.svg?branch=master)](https://coveralls.io/github/ilyakaznacheev/gontracts?branch=master)
 
 ## Usage
 
