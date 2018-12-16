@@ -2,6 +2,8 @@
 
 The microservice able to handle companies, contracts, and purchases
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/ilyakaznacheev/gontracts)](https://goreportcard.com/report/github.com/Masterminds/glide) [![GoDoc](https://godoc.org/github.com/ilyakaznacheev/gontracts?status.svg)](https://godoc.org/github.com/ilyakaznacheev/gontracts)
+
 ## Usage
 
 To run service you have to run MySQL server via Docker
