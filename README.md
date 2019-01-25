@@ -28,6 +28,8 @@ If you download the package manually following requirements must be met:
 
 ## API
 
+For full API description see `swagger.yml`
+
 Service has following web API:
 - `/company/<id:int>` GET: get company data by id 
 - `/company` POST: create new company

@@ -1,0 +1,384 @@
+swagger: "2.0"
+info: 
+  description: "Gontract server written in Go"
+  version: "1.0.0"
+  title: "Gontracts Server API"
+  license: 
+    name: "MIT"
+host: "localhost"
+basePath: "/"
+schemes:
+  - "http"
+tags:
+- name: "company"
+  description: "Selling or purchasing company"
+- name: "contract"
+  description: "A financial document between two companies"
+- name: "purchase"
+  description: "Creation of new purchase document"
+
+paths:
+  /companies:
+    get:
+      tags:
+      - company
+      summary: "Get company list"
+      description: "Returns company information"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Company"
+        404:
+          description: "company not found"
+        500:
+          description: "internal error"
+
+  /company/{companyId}:
+    get:
+      tags:
+      - company
+      summary: "Find company by ID"
+      description: "Returns company information"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "companyId"
+        in: "path"
+        description: "Company ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Company"
+        400:
+          description: "invalid request"
+        404:
+          description: "company not found"
+        500:
+          description: "internal error"
+    delete:
+      tags:
+      - company
+      summary: "Delete company by ID"
+      description: "Deletes certain company"
+      parameters:
+      - name: "companyId"
+        in: "path"
+        description: "Company ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+        400:
+          description: "invalid request"
+        404:
+          description: "company not found"
+
+  /company:
+    post:
+      tags:
+      - company
+      summary: "Create new company"
+      description: "creates new company and returns information"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "company"
+        schema:
+          $ref: "#/definitions/CompanyRequest"
+      responses:
+        201:
+          description: "created"
+          schema:
+            $ref: "#/definitions/NewID"
+        400:
+          description: "invalid request"
+        500:
+          description: "internal error" 
+    put:
+      tags:
+      - company
+      summary: "Create or update company"
+      description: "creates new company or updates existing one and returns information"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "company"
+        schema:
+          $ref: "#/definitions/CompanyRequest"
+      responses:
+        200:
+          description: "updated"
+          schema:
+            $ref: "#/definitions/Company"
+        201:
+          description: "created"
+          schema:
+            $ref: "#/definitions/Company"
+        400:
+          description: "invalid request"
+        500:
+          description: "internal error"
+
+  /contracts:
+    get:
+      tags:
+      - contract
+      summary: "Get contract list"
+      description: "Returns contract information"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Contract"
+        404:
+          description: "company not found"
+        500:
+          description: "internal error"
+
+  /contract/{contractId}:
+    get:
+      tags:
+      - contract
+      summary: "Find contract by ID"
+      description: "Returns contract information"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "contractId"
+        in: "path"
+        description: "Contract ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Contract"
+        400:
+          description: "invalid request"
+        404:
+          description: "contract not found"
+        500:
+          description: "internal error"
+    delete:
+      tags:
+      - contract
+      summary: "Delete contract by ID"
+      description: "Deletes certain contract"
+      parameters:
+      - name: "contractId"
+        in: "path"
+        description: "Contract ID"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        200:
+          description: "successful operation"
+        400:
+          description: "invalid request"
+        404:
+          description: "company not found"
+  /contract:
+    post:
+      tags:
+      - contract
+      summary: "Create new contract"
+      description: "creates new contract and returns information"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "contract"
+        schema:
+          $ref: "#/definitions/ContractRequest"
+      responses:
+        201:
+          description: "created"
+          schema:
+            $ref: "#/definitions/NewID"
+        400:
+          description: "invalid request"
+        500:
+          description: "internal error"
+    put:
+      tags:
+      - contract
+      summary: "Create or update contract"
+      description: "creates new contract or updates existing one and returns information"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "contract"
+        schema:
+          $ref: "#/definitions/ContractRequest"
+      responses:
+        200:
+          description: "updated"
+          schema:
+            $ref: "#/definitions/Contract"
+        201:
+          description: "created"
+          schema:
+            $ref: "#/definitions/Contract"
+        400:
+          description: "invalid request"
+        500:
+          description: "internal error"
+
+  /purchase:
+    post:
+      tags:
+      - purchase
+      summary: "Create new purchase document"
+      description: "creates new purchase and returns purchase ID"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "purchase"
+        schema:
+          $ref: "#/definitions/Purchase"
+      responses:
+        201:
+          description: "created"
+          schema:
+            $ref: "#/definitions/NewID"
+        400:
+          description: "invalid request"
+        500:
+          description: "internal error"
+
+definitions:
+  NewID:
+    type: "object"
+    required:
+    - "ID"
+    properties:
+      ID:
+        type: "integer"
+        format: "int64"
+
+  CompanyRequest:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      ID:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      regcode:
+        type: "string"
+
+  Company:
+    type: "object"
+    required:
+    - "ID"
+    - "name"
+    properties:
+      ID:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      regcode:
+        type: "string"
+
+  Contract:
+    type: "object"
+    required:
+    - "ID"
+    - "sellerID"
+    - "clientID"
+    - "validFrom"
+    - "validTo"
+    - "amount"
+    properties:
+      ID:
+        type: "integer"
+        format: "int64"
+      sellerID:
+        type: "integer"
+        format: "int64"
+      clientID:
+        type: "integer"
+        format: "int64"
+      validFrom:
+        type: "string"
+        format: "date-time"
+      validTo:
+        type: "string"
+        format: "date-time"
+      amount:
+        type: "integer"
+        format: "int64"
+
+  ContractRequest:
+    type: "object"
+    required:
+    - "sellerID"
+    - "clientID"
+    - "validFrom"
+    - "validTo"
+    - "amount"
+    properties:
+      ID:
+        type: "integer"
+        format: "int64"
+      sellerID:
+        type: "integer"
+        format: "int64"
+      clientID:
+        type: "integer"
+        format: "int64"
+      validFrom:
+        type: "string"
+        format: "date-time"
+      validTo:
+        type: "string"
+        format: "date-time"
+      amount:
+        type: "integer"
+        format: "int64"
+
+  Purchase:
+    type: "object"
+    required:
+    - "contractID"
+    - "datetime"
+    - "amount"
+    properties:
+      ID:
+        type: "integer"
+        format: "int64"
+      contractID:
+        type: "integer"
+        format: "int64"
+      datetime:
+        type: "string"
+        format: "date-time"
+      amount:
+        type: "integer"
+        format: "int64"
+        
