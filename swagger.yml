@@ -130,26 +130,6 @@ paths:
         500:
           description: "internal error"
 
-  /contracts:
-    get:
-      tags:
-      - contract
-      summary: "Get contract list"
-      description: "Returns contract information"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Contract"
-        404:
-          description: "company not found"
-        500:
-          description: "internal error"
-
   /contract/{contractId}:
     get:
       tags:
@@ -195,7 +175,26 @@ paths:
           description: "invalid request"
         404:
           description: "company not found"
+          
   /contract:
+    get:
+      tags:
+      - contract
+      summary: "Get contract list"
+      description: "Returns contract information"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Contract"
+        404:
+          description: "company not found"
+        500:
+          description: "internal error"
     post:
       tags:
       - contract

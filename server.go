@@ -42,7 +42,7 @@ func (s *Server) Start() error {
 	r.HandleFunc("/contract", h.UpdateContract).Methods("PUT")
 	r.HandleFunc("/contract/{id:[0-9]+}", h.DeleteContract).Methods("DELETE")
 	r.HandleFunc("/contract/{id:[0-9]+}/purchase", h.GetPurchaseHistory).Methods("GET")
-	r.HandleFunc("/contracts", h.GetContractList).Methods("GET")
+	r.HandleFunc("/contract", h.GetContractList).Methods("GET")
 	r.HandleFunc("/purchase", h.Purchase).Methods("POST")
 
 	// handle keyboard interrupt

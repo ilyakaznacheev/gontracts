@@ -492,11 +492,11 @@ func TestGetContractList(t *testing.T) {
 	for _, c := range cases {
 		h := testNewHandler(c.Models.company, c.Models.contract, c.Models.purchase)
 
-		url := "/contracts"
+		url := "/contract"
 		req := httptest.NewRequest("GET", url, nil)
 		w := httptest.NewRecorder()
 
-		testHandle("/contracts", w, req, h.GetContractList)
+		testHandle("/contract", w, req, h.GetContractList)
 		testCheckResponse("GetContractList:"+c.Num, t, w, c.Status, c.Response)
 	}
 }
