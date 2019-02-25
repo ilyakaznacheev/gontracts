@@ -36,7 +36,7 @@ func (s *Server) Start() error {
 	r.HandleFunc("/company", h.CreateCompany).Methods("POST")
 	r.HandleFunc("/company", h.UpdateCompany).Methods("PUT")
 	r.HandleFunc("/company/{id:[0-9]+}", h.DeleteCompany).Methods("DELETE")
-	r.HandleFunc("/companies", h.GetCompanyList).Methods("GET")
+	r.HandleFunc("/company", h.GetCompanyList).Methods("GET")
 	r.HandleFunc("/contract/{id:[0-9]+}", h.GetContract).Methods("GET")
 	r.HandleFunc("/contract", h.CreateContract).Methods("POST")
 	r.HandleFunc("/contract", h.UpdateContract).Methods("PUT")

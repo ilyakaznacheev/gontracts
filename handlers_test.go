@@ -143,11 +143,11 @@ func TestGetCompanyList(t *testing.T) {
 	for _, c := range cases {
 		h := testNewHandler(c.Models.company, c.Models.contract, c.Models.purchase)
 
-		url := "/companies"
+		url := "/company"
 		req := httptest.NewRequest("GET", url, nil)
 		w := httptest.NewRecorder()
 
-		testHandle("/companies", w, req, h.GetCompanyList)
+		testHandle("/company", w, req, h.GetCompanyList)
 		testCheckResponse("GetCompanyList:"+c.Num, t, w, c.Status, c.Response)
 	}
 }

@@ -18,26 +18,6 @@ tags:
   description: "Creation of new purchase document"
 
 paths:
-  /companies:
-    get:
-      tags:
-      - company
-      summary: "Get company list"
-      description: "Returns company information"
-      produces:
-      - "application/json"
-      responses:
-        200:
-          description: "successful operation"
-          schema:
-            type: "array"
-            items:
-              $ref: "#/definitions/Company"
-        404:
-          description: "company not found"
-        500:
-          description: "internal error"
-
   /company/{companyId}:
     get:
       tags:
@@ -85,6 +65,24 @@ paths:
           description: "company not found"
 
   /company:
+    get:
+      tags:
+      - company
+      summary: "Get company list"
+      description: "Returns company information"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Company"
+        404:
+          description: "company not found"
+        500:
+          description: "internal error"
     post:
       tags:
       - company
