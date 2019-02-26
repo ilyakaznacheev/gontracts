@@ -330,7 +330,7 @@ paths:
           schema:
             type: string
             description: "Bearer token"
-            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.VDoTUNO6sLuzlhAvEr1_opI82cqsvYLWUvbCzqnSDbU"
+            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE1NTEyNjI5MzcsImlzcyI6InBjMSIsInN1YiI6ImxvY2FsaG9zdDo4MDAwIn0.HQTqCpBkldQG2Tftd2zVHndxvUTtNWlQnBnhWrWf_Ig"
 
 definitions:
   NewID:

@@ -56,7 +56,7 @@ Service has following web API:
 
 ### Authorization
 
-API uses Bearer tokens for authorizations.
+API uses [JSON Web Encryption (JWE)](https://tools.ietf.org/html/rfc7516) for authorizations.
 
 Use GET request to `/get-token` to get a new token. Other paths require authorization.
 

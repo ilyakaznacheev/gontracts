@@ -2,6 +2,8 @@ package gontracts
 
 import (
 	"net/http"
+	"os"
+	"time"
 
 	jwtmiddleware "github.com/auth0/go-jwt-middleware"
 	jwt "github.com/dgrijalva/jwt-go"
@@ -28,8 +30,15 @@ func NewAuthHandler(key []byte) *AuthHandler {
 
 // GenerateToken returns new authentication token
 func (a *AuthHandler) GenerateToken(w http.ResponseWriter, r *http.Request) {
+
+	hostname, _ := os.Hostname()
+
 	// create a new token
-	token := jwt.New(jwt.SigningMethodHS256)
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, jwt.MapClaims{
+		"sub": r.Host,
+		"iss": hostname,
+		"exp": time.Now().Add(time.Hour * 24).Unix(),
+	})
 
 	// sign token with a key
 	tokenString, _ := token.SignedString(a.secretKey)
