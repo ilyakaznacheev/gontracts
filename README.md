@@ -6,6 +6,15 @@ The microservice able to handle companies, contracts, and purchases
 
 ## Usage
 
+Download service via 
+
+```shell
+go get -t github.com/ilyakaznacheev/gontracts/...
+```
+
+and then open directory `GOPATH/src/github.com/ilyakaznacheev`.
+Or you can manually create the same dir and fetch the repo with Git.
+
 To run service you have to run MySQL server via Docker
 
 ```shell
@@ -35,14 +44,21 @@ Service has following web API:
 - `/company` POST: create new company
 - `/company` PUT: create or update company
 - `/company/<id:int>` DELETE: delete company by id
-- `/companies` GET: get list of all companies
+- `/company` GET: get list of all companies
 - `/contract/<id:int>` GET: get contract data by id 
 - `/contract` POST: create new contract
 - `/contract` PUT: create or update contract
 - `/contract/<id:int>` DELETE: delete contract by id
-- `/contracts` GET: get list of all contracts
+- `/contract` GET: get list of all contracts
 - `/contract/<id:int>/purchase` GET: get purchase history of contract
 - `/purchase` POST: create new purchase document
+- `/get-token` GET: generates new Bearer auth token
+
+### Authorization
+
+API uses Bearer tokens for authorizations.
+
+Use GET request to `/get-token` to get a new token. Other paths require authorization.
 
 ## Examples
 
