@@ -1,6 +1,7 @@
 package gontracts
 
 import (
+	"crypto/rand"
 	"log"
 	"net/http"
 	"os"
@@ -19,6 +20,13 @@ type Server struct {
 // Start runs the server
 func (s *Server) Start() error {
 
+	// generate random secret key for sesstion
+	key := make([]byte, 64)
+	_, err := rand.Read(key)
+	if err != nil {
+		return err
+	}
+
 	dbConn, err := db.Connect()
 	if err != nil {
 		return err
@@ -30,20 +38,25 @@ func (s *Server) Start() error {
 		db.NewPurchaseDAC(dbConn),
 	)
 
+	a := NewAuthHandler(key)
+
 	r := mux.NewRouter()
+
 	// setup uri handlers
-	r.HandleFunc("/company/{id:[0-9]+}", h.GetCompany).Methods("GET")
-	r.HandleFunc("/company", h.CreateCompany).Methods("POST")
-	r.HandleFunc("/company", h.UpdateCompany).Methods("PUT")
-	r.HandleFunc("/company/{id:[0-9]+}", h.DeleteCompany).Methods("DELETE")
-	r.HandleFunc("/company", h.GetCompanyList).Methods("GET")
-	r.HandleFunc("/contract/{id:[0-9]+}", h.GetContract).Methods("GET")
-	r.HandleFunc("/contract", h.CreateContract).Methods("POST")
-	r.HandleFunc("/contract", h.UpdateContract).Methods("PUT")
-	r.HandleFunc("/contract/{id:[0-9]+}", h.DeleteContract).Methods("DELETE")
-	r.HandleFunc("/contract/{id:[0-9]+}/purchase", h.GetPurchaseHistory).Methods("GET")
-	r.HandleFunc("/contract", h.GetContractList).Methods("GET")
-	r.HandleFunc("/purchase", h.Purchase).Methods("POST")
+	r.Handle("/company/{id:[0-9]+}", a.HandlerFunc(h.GetCompany)).Methods("GET")
+	r.Handle("/company", a.HandlerFunc(h.CreateCompany)).Methods("POST")
+	r.Handle("/company", a.HandlerFunc(h.UpdateCompany)).Methods("PUT")
+	r.Handle("/company/{id:[0-9]+}", a.HandlerFunc(h.DeleteCompany)).Methods("DELETE")
+	r.Handle("/company", a.HandlerFunc(h.GetCompanyList)).Methods("GET")
+	r.Handle("/contract/{id:[0-9]+}", a.HandlerFunc(h.GetContract)).Methods("GET")
+	r.Handle("/contract", a.HandlerFunc(h.CreateContract)).Methods("POST")
+	r.Handle("/contract", a.HandlerFunc(h.UpdateContract)).Methods("PUT")
+	r.Handle("/contract/{id:[0-9]+}", a.HandlerFunc(h.DeleteContract)).Methods("DELETE")
+	r.Handle("/contract/{id:[0-9]+}/purchase", a.HandlerFunc(h.GetPurchaseHistory)).Methods("GET")
+	r.Handle("/contract", a.HandlerFunc(h.GetContractList)).Methods("GET")
+	r.Handle("/purchase", a.HandlerFunc(h.Purchase)).Methods("POST")
+
+	r.HandleFunc("/get-token", a.GenerateToken).Methods("GET")
 
 	// handle keyboard interrupt
 	s.stop = func() {

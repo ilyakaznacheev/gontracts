@@ -15,7 +15,7 @@ docker-compose up
 and then start the server
 
 ```shell
-go run example/run.go
+go run cmd/gontracts/gontracts.go
 ```
 
 The server will be started on `localhost:8000`

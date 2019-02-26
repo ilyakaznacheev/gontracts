@@ -2,13 +2,18 @@ swagger: "2.0"
 info: 
   description: "Gontract server written in Go"
   version: "1.0.0"
-  title: "Gontracts Server API"
+  title: "Contracts Server API"
   license: 
     name: "MIT"
 host: "localhost"
 basePath: "/"
 schemes:
   - "http"
+securityDefinitions:
+  Bearer:
+    type: apiKey
+    name: Authorization
+    in: header
 tags:
 - name: "company"
   description: "Selling or purchasing company"
@@ -16,6 +21,8 @@ tags:
   description: "A financial document between two companies"
 - name: "purchase"
   description: "Creation of new purchase document"
+- name: "auth"
+  description: "Authorization"
 
 paths:
   /company/{companyId}:
@@ -24,6 +31,8 @@ paths:
       - company
       summary: "Find company by ID"
       description: "Returns company information"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       parameters:
@@ -40,6 +49,8 @@ paths:
             $ref: "#/definitions/Company"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         404:
           description: "company not found"
         500:
@@ -49,6 +60,8 @@ paths:
       - company
       summary: "Delete company by ID"
       description: "Deletes certain company"
+      security:
+        - Bearer: []
       parameters:
       - name: "companyId"
         in: "path"
@@ -61,6 +74,8 @@ paths:
           description: "successful operation"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         404:
           description: "company not found"
 
@@ -70,6 +85,8 @@ paths:
       - company
       summary: "Get company list"
       description: "Returns company information"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       responses:
@@ -79,6 +96,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Company"
+        401:
+          description: "signature is invalid"
         404:
           description: "company not found"
         500:
@@ -88,6 +107,8 @@ paths:
       - company
       summary: "Create new company"
       description: "creates new company and returns information"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       parameters:
@@ -102,6 +123,8 @@ paths:
             $ref: "#/definitions/NewID"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         500:
           description: "internal error" 
     put:
@@ -109,6 +132,8 @@ paths:
       - company
       summary: "Create or update company"
       description: "creates new company or updates existing one and returns information"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       parameters:
@@ -127,6 +152,8 @@ paths:
             $ref: "#/definitions/Company"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         500:
           description: "internal error"
 
@@ -136,6 +163,8 @@ paths:
       - contract
       summary: "Find contract by ID"
       description: "Returns contract information"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       parameters:
@@ -152,6 +181,8 @@ paths:
             $ref: "#/definitions/Contract"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         404:
           description: "contract not found"
         500:
@@ -161,6 +192,8 @@ paths:
       - contract
       summary: "Delete contract by ID"
       description: "Deletes certain contract"
+      security:
+        - Bearer: []
       parameters:
       - name: "contractId"
         in: "path"
@@ -173,6 +206,8 @@ paths:
           description: "successful operation"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         404:
           description: "company not found"
           
@@ -182,6 +217,8 @@ paths:
       - contract
       summary: "Get contract list"
       description: "Returns contract information"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       responses:
@@ -191,6 +228,8 @@ paths:
             type: "array"
             items:
               $ref: "#/definitions/Contract"
+        401:
+          description: "signature is invalid"
         404:
           description: "company not found"
         500:
@@ -200,6 +239,8 @@ paths:
       - contract
       summary: "Create new contract"
       description: "creates new contract and returns information"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       parameters:
@@ -214,6 +255,8 @@ paths:
             $ref: "#/definitions/NewID"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         500:
           description: "internal error"
     put:
@@ -221,6 +264,8 @@ paths:
       - contract
       summary: "Create or update contract"
       description: "creates new contract or updates existing one and returns information"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       parameters:
@@ -239,6 +284,8 @@ paths:
             $ref: "#/definitions/Contract"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         500:
           description: "internal error"
 
@@ -248,6 +295,8 @@ paths:
       - purchase
       summary: "Create new purchase document"
       description: "creates new purchase and returns purchase ID"
+      security:
+        - Bearer: []
       produces:
       - "application/json"
       parameters:
@@ -262,8 +311,26 @@ paths:
             $ref: "#/definitions/NewID"
         400:
           description: "invalid request"
+        401:
+          description: "signature is invalid"
         500:
           description: "internal error"
+
+  /get-token:
+    get:
+      tags:
+      - auth
+      summary: "Get authentication token"
+      description: "creates new Bearer authentication token"
+      produces:
+      - "text/plain"
+      responses:
+        200:
+          description: "token generated"
+          schema:
+            type: string
+            description: "Bearer token"
+            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.e30.VDoTUNO6sLuzlhAvEr1_opI82cqsvYLWUvbCzqnSDbU"
 
 definitions:
   NewID:
